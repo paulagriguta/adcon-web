@@ -1,0 +1,38 @@
+{
+  "lucrare": [
+    "Instalația electrică",
+    "Instalația sanitară",
+    "Zugrăvit",
+    "Finisaj interior",
+    "Gresie-Faianță",
+    "Parchet",
+    "Geamuri",
+    "Uși",
+    "Calorifere",
+    "Reparații generale"
+  ],
+  "pretm2": [
+    10,
+    20,
+    30,
+    15,
+    20,
+    30,
+    20,
+    15,
+    20,
+    30
+  ],
+  "unitate": [
+    "m2",
+    "# elemente",
+    "m2",
+    "m2",
+    "m2",
+    "m2",
+    "# geamuri",
+    "# uși",
+    "# calorifere",
+    "m2"
+  ]
+}

@@ -1,0 +1,87 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1>Proiect: {{ project.username }}</h1>
+        <p class="lead">Tipul proiectului: {{project.projectType}} </p>
+        <p class="lead">Adresa: {{project.address}} </p>
+        <p class="lead">Data emiterii ofertei: {{dateFormatted}} </p>
+        <div class="informatii"> {{#if project.renovationType}}
+            <table class="table table-hover">
+                <thead>
+
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Lucrare</th>
+                        <th scope="col">Preț Unitate</th>
+                        <th scope="col">Număr Unități</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each objArray}}
+                    <tr>
+
+                        <th scope="row">{{@index }}</th>
+                        <td>{{this.lucrare}}</td>
+                        <td>{{this.nrUnitati}}</td>
+                        <td>{{this.pretUnitate}}</td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>{{/if}}
+            {{#if project.details}}
+            <div class="col-md-6 element-animate">
+                <div class="media d-block media-testimonial text-center">
+                    <p>Detalii suplimentare</p>
+                    <div class="media-body">
+                        {{project.details}}
+
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        <p id="actions">
+            <a class="btn btn-primary btn-lg" id="edit-btn" role="button">Edit</a>
+        </p>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var postId = "{{ project._id }}";
+    var postContent;
+    var makeEditable = function (event) {
+        console.log("make Editable")
+        // capture the content of the post, then replace with editable textarea
+        postContent = $("#post-body").html();
+        var editableText = $('<textarea id="editable-post-body" class="form-control" />');
+        editableText.val(postContent);
+        $("#post-body").replaceWith(editableText);
+        editableText.focus();
+
+        var saveBtn = $('<a class="btn btn-primary btn-lg" id="save-btn" role="button">Save</a>');
+        var cancelBtn = $('<a class="btn btn-info btn-lg" id="cancel-btn" role="button">Cancel</a>');
+
+        saveBtn.click(function () {
+            // capture the new post content and send to backend
+            postContent = $("#editable-post-body").val();
+            axios.post("/dashboard/" + postId, { body: postContent });
+            restoreBody();
+        });
+        cancelBtn.click(restoreBody);
+        // replace "Edit" button with "Save" and "Cancel"
+        $("#actions").html([saveBtn, cancelBtn]);
+    };
+
+    $('#edit-btn').click(makeEditable);
+
+    var restoreBody = function () {
+        var postBody = $('<p id="post-body"></p>');
+        postBody.html(postContent);
+        $("#editable-post-body").replaceWith(postBody);
+        var editBtn = $('<a class="btn btn-primary btn-lg" id="edit-btn" role="button">Edit</a>');
+        editBtn.click(makeEditable);
+        $("#actions").html(editBtn);
+    };
+
+
+</script>

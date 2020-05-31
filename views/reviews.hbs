@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Reviews</a>
+</nav>
+
+<div>
+    <!-- <iframe src="https://calendar.google.com/calendar/embed?src=eu.sunt.bob.constructorul%40gmail.com&ctz=Europe%2FBucharest" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+-->
+    <div>
+        <table>
+            <thead>
+                <th>user</th>
+                <th>review</th>
+            </thead>
+            <tbody>
+                <tr id="users"></tr>
+                <tr id="reviews"></tr>
+            </tbody>
+        </table>
+
+        <ul>
+            {{#each reviews}}
+            <li>{{ this }}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <form method="POST" action="/reviews">
+        <div class="form-group">
+            <label for="leaveReview">Leave review</label>
+            <input name="leaveReview" type="text" class="form-control" id="reviewInput" placeholder="Review">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+<script>
+
+</script>

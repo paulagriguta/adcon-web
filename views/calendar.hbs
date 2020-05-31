@@ -1,0 +1,367 @@
+<section class="inner-page">
+    <div class="slider-item py-5" style="background-image: url('img/slider-1.jpg');">
+
+        <div class="container">
+            <div class="row slider-text align-items-center justify-content-center text-center">
+                <div class="col-md-7 col-sm-12 element-animate">
+                    <h1 class="text-white">Programează-ți propria lucrare</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="fname">Nume</label>
+                            <input type="text" class="form-control form-control-lg" id="lname" name="lname">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="lname">Prenume</label>
+                            <input type="text" class="form-control form-control-lg" id="fname" name="fname">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="lucrare">Localitate lucrare</label>
+                            <select class="form-control form-control-lg" id="selecteazaLocalitate" name="localitate">
+                                {{#each Localitati}}
+                                <option value={{this}}>{{this}}</option>
+                                {{/each}}
+                            </select>
+                            <small id="lucrarica" class="form-text text-muted">Nu preluăm lucrări în afara județului
+                                Maramureș.</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="lucrare">Adresă</label>
+                            <input type="text" class="form-control form-control-lg" id="adresa" name="adresa">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <div class="form-check form-check-inline col-md-6">
+                                <input type="radio" name="tipProiect" value="constructie" id="proiectConstructie"
+                                    onchange="arataContinuare()">
+                                <label class="form-check-label" for="proiectConstructie"
+                                    style="text-align: center;">Construcție</label>
+                            </div>
+                            <div class="form-check form-check-inline col-md-6">
+                                <input type="radio" name="tipProiect" value="renovare" id="proiectRenovare"
+                                    onchange="arataContinuare()">
+                                <label class="form-check-label" for="proiectRenovare"
+                                    style="text-align: center; text-font: 15px;">Renovare</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="continuare">
+
+                        <div id="continuareConstructie" style="display:none">
+                            <h3>Proiect Construcție Casă</h3>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <div class="form-check" id="checkMansarda">
+                                        <input type="checkbox" class="form-check-input lista" id="mansarda"
+                                            name="mansarda" checked="check" />
+                                        <label class="form-check-label" for="mansarda">Mansardă</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStructura" id="tipBetonArmat" value="Beton Armat">
+                                        <label class="form-check-label" for="tipStructura"
+                                            style="text-align: center;">Beton Armat</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStructura" id="tipCaramida" value="Cărămidă">
+                                        <label class="form-check-label" for="tipStructura"
+                                            style="text-align: right;">Cărămidă</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStructura" id="tipLemn" value="Lemn">
+                                        <label class="form-check-label" for="tipStructura"
+                                            style="text-align: center;">Lemn</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12" style="white-space:nowrap">
+                                    <label for="etaje">Etaje</label>
+                                    <input type="text" class="form-control form-control-lg col-md-6" name="etaje"
+                                        id="etaje">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12" style="white-space:nowrap">
+                                    <label for="suprafata">Suprafață</label>
+                                    <input type="text" class="form-control form-control-lg col-md-6" name="suprafata"
+                                        id="suprafata">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12" style="white-space:nowrap">
+                                    <label for="nrCamere">Număr camere</label>
+                                    <input type="text" class="form-control form-control-lg col-md-6" name="nrCamere"
+                                        id="nrCamere">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12" style="white-space:nowrap">
+                                    <label for="nrBai" class="col-md-6">Număr băi</label>
+                                    <input type="text" class="form-control form-control-lg col-md-6" name="nrBai"
+                                        id="nrBai">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-check form-check">
+                                    <label for="file">Adaugă propriul plan</label>
+                                    <input type='file' name='fileUploaded' class="form-control-file">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="continuareRenovare" style="display:none">
+                            <h3>Proiect Renovare</h3>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipCladire" value="Casa" >
+                                        <label class="form-check-label" for="proiectRenovare"
+                                            style="text-align: center;">Casă</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipCladire" value="Apartament"
+                                           >
+                                        <label class="form-check-label" for="proiectRenovare"
+                                            style="text-align: center;">Apartament</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    {{#each listaRenovare}}
+                                    <div class="form-check" id="listaRenovare">
+                                        <input type="checkbox" class="form-check-input lista"
+                                            id="listaRenovare{{@index}}" name="listaRenovare" value="{{this}}"
+                                            onclick="addInp({{@index}})" />
+                                        <label class="form-check-label" for="{{@index}}">{{this}}</label>
+                                    </div>
+                                    <div class="form-group metri" id="m2{{@index}}">
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="row" style="display:none">
+                                <div class="col-md-12 form-group">
+                                     <ul class="preturi" name="preturi" ></ul>
+                                    {{#each preturi}}
+                                   <div class="form-check" id="listaPreturi">
+                                        <input type="checkbox" class="form-check-input lista"
+                                            id="listaPreturi{{@index}}" name="listaPreturi" value="{{this}}" />
+                                    </div>                                   
+                                    {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none">
+                                <div class="col-md-12 form-group">
+                                    <ul class="unitati">
+                                        {{#each unitati}}
+
+                                        <li id="unitate{{@index}}" value="{{this}}">{{this}}</li>
+
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="message">Adaugă detalii</label>
+                                    <textarea name="message" id="message" class="form-control form-control-lg" cols="30"
+                                        rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <button class="btn btn-primary" type="button" onclick="calculeazaPret()">Calculează
+                                        preț</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="card" id="card" style="width: 18rem; display: none">
+                                    <div class="card-header">
+                                        Ofertă Preț
+                                    </div>
+                                    <ul class="list-group list-group-flush" id="pretEuroLei">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md form-group">
+                            <input type="submit" name="save" class="btn btn-danger btn-lg btn-block"
+                                formaction="/my-project/save" data-toggle="modal" data-target="#staticBackdrop2"
+                                value="Salvează Datele" />
+                            <input type="submit" name="send" id="send" value="Trimite Cererea"
+                                class="btn btn-primary btn-lg btn-block" data-toggle="modal"
+                                data-target="#staticBackdrop" formaction="/my-project/1">
+                            <input type="submit" name="download" class="btn btn-secondary btn-lg btn-block"
+                                formaction="/my-project" id="download" value="Descarcă PDF" />
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <iframe
+                    src="https://calendar.google.com/calendar/b/3/embed?height=512&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FBucharest&amp;src=ZXUuc3VudC5ib2IuY29uc3RydWN0b3J1bEBnbWFpbC5jb20&amp;src=cm8ucm9tYW5pYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%230B8043&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;showDate=1&amp;showTabs=0&amp;mode=MONTH"
+                    style="border-width:2" width="512" height="512" frameborder="0" scrolling="no"></iframe>
+            </div>
+        </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Cerere Trimisă</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="succes">
+                Cererea ta a fost înregistrată cu succes.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Date Salvate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Datele dumneavoastră au fost înregistrate cu succes.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var pretRenovare = 0;
+    var pretPartial = [];
+    var cursEuro = {{ valEuro }};
+    var listaPreturiUnitati = [];
+    function addInp(index) {
+        var x = document.getElementById("m2" + index);
+        var y = document.getElementById("unitate" + index).textContent;
+        var z = document.getElementById("listaPreturi" + index).checked = "true";
+        var label = document.createElement("label");
+        label.setAttribute("name", "listaUnitati");
+        label.setAttribute("for", "listaUnitati");
+        var node = document.createTextNode(y);
+        label.append(node);
+        var inp = document.createElement("input");
+        inp.setAttribute("type", "text");
+        inp.setAttribute("class", "form-control form-control-lg");
+        inp.setAttribute("name", "listaNrUnitati");
+        inp.setAttribute("id", "inp" + index);
+        inp.setAttribute("onchange", "addPret(" + index + ")");
+        x.appendChild(label);
+        x.appendChild(inp);
+    }
+    function addPret(index) {
+        var x = document.getElementById("inp" + index).value;
+        var y = document.getElementById("listaPreturi" + index).value;
+        listaPreturiUnitati.push(y);
+        pretPartial[index] = x * y;
+    }
+    function calculeazaPret() {
+
+        pretPartial.forEach((val) => pretRenovare += val);
+
+        var pretRenovareEuro = pretRenovare;
+        var pretRenovareLei = Math.round(cursEuro * pretRenovare);
+
+
+        var div1 = document.getElementById("card");
+        var ul = document.getElementById("pretEuroLei");
+        var li = document.createElement("li");
+        var li2 = document.createElement("li");
+        var txt = document.createTextNode("Euro: " + pretRenovareEuro);
+        var txt2 = document.createTextNode("Lei: " + pretRenovareLei);
+        li.setAttribute("class", "list-group-item")
+        li2.setAttribute("class", "list-group-item")
+        li.appendChild(txt);
+        ul.appendChild(li);
+        li2.appendChild(txt2);
+        ul.appendChild(li2);
+        div1.style.display = "block";
+        pretRenovare = 0;
+    }
+    function arataContinuare() {
+        var x1 = document.getElementById("proiectConstructie").checked;
+        var x2 = document.getElementById("proiectRenovare").checked;
+        var c1 = document.getElementById("continuareConstructie");
+        var c2 = document.getElementById("continuareRenovare");
+
+        if (x1 === true) {
+            c1.style.display = "block";
+            c2.style.display = "none";
+        }
+        else if (x2 === true) {
+            c2.style.display = "block";
+            c1.style.display = "none";
+
+        }
+        else {
+            c1.style.display = "none";
+            c2.style.display = "none";
+        }
+    }
+
+    function alegeTipCladire() {
+        var x1 = document.getElementById("proiectConstructie").checked;
+        var x2 = document.getElementById("proiectRenovare").checked;
+    }
+
+    $("#save").click(function () 
+        { console.log("ai salvat")
+            $("#send").css("display", "block");
+            $("#download").css("display", "block");
+        })
+
+</script>

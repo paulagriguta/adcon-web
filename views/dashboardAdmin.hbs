@@ -1,0 +1,51 @@
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+<section class="section border-t">
+    <div class="container">
+        <div class="row justify-content-center mb-5 element-animate">
+            <div class="col-md-8 text-center">
+                <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Noi</h2>
+                <div class="list-group">
+                    {{#each newProjects }}
+                    <a href="dashboardAdmin/{{ this._id }}" class="list-group-item">
+                        Proiect: {{ this.username}}
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section border-t">
+    <div class="container">
+        <div class="row justify-content-center mb-5 element-animate">
+            <div class="col-md-8 text-center">
+                <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Acceptate</h2>
+                <div class="list-group">
+                    {{#each acceptedProjects }}
+                    <a href="dashboardAdmin/{{ this._id }}" class="list-group-item">
+                        Proiect: {{ this.username}}
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section border-t">
+    <div class="container">
+        <div class="row justify-content-center mb-5 element-animate">
+            <div class="col-md-8 text-center">
+                <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Respinse</h2>
+                <div class="list-group">
+                    {{#each rejectedProjects }}
+                    <a href="dashboardAdmin/{{ this._id }}" class="list-group-item">
+                        Proiect: {{ this.username}}
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

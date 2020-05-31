@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <base href="/" target="_self">
+  <title>Augustin Daniel Construct</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/icheck-bootstrap.css">
+
+  <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <!-- Theme Style -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- jQuery for easy DOM manipulation -->
+  <script src="https://code.jquery.com/jquery-3.3.0.min.js"
+    integrity="sha256-RTQy8VOmNlT6b2PIRur37p6JEBZUE7o8wPgMvu18MC4=" crossorigin="anonymous">
+    </script>
+  <!-- We're pulling in Axios for AJAX requests -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <header role="banner">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand position-absolute" href="index">ADCON</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+          aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse position-relative" id="navbarsExample05">
+          <ul class="navbar-nav mx-auto pl-lg-5 pl-0 d-flex align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Acasă</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="services.html" id="dropdown04" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Servicii</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="services.html">Pre-Construction</a>
+                <a class="dropdown-item" href="services.html">General Construction</a>
+                <a class="dropdown-item" href="services.html">House Renovation</a>
+                <a class="dropdown-item" href="services.html">Plumbing</a>
+              </div>
+
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projects">Galerie</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">Despre noi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my-project">Proiectul meu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <!--          <li class="nav-item cta-btn2">
+              <a class="nav-link" href="get-quote.html">
+                <span class="d-inline-block px-4 py-2 border">Quotation</span>
+              </a>
+            </li> -->
+
+            {{#if user}}
+            <li class="nav-item cta-btn2">
+              <a class="nav-link" href="/dashboard">
+                <span class="d-inline-block px-4 py-2 border">Salut, {{user.profile.firstName}}!</span>
+              </a>
+            </li>
+            {{else}}
+            <li class="nav-item cta-btn2">
+              <a class="nav-link" href="/users/login">
+                <span class="d-inline-block px-4 py-2 border">Intră în cont</span>
+              </a>
+            </li>
+            {{/if}}
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <body>
+    {{{body}}}
+
+    <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+          stroke="#f4b214" /></svg></div>
+    <link href="https://fonts.googleapis.com/css?family=K2D:400,700|Niramit:300,700" rel="stylesheet">
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script>
+      var pusher = new Pusher('be416256f38c1d74ab80', { cluster: 'eu' });
+
+      // retrieve the socket ID once we're connected
+      pusher.connection.bind('connected', function () {
+        // attach the socket ID to all outgoing Axios requests
+        axios.defaults.headers.common['x-socket-id'] = pusher.connection.socket_id;
+      });
+
+      Notification.requestPermission();
+      var channel1 = pusher.subscribe('notifications')
+      var channel2 = pusher.subscribe('updates')
+      channel1.bind('pusher:subscription_succeeded', function () {
+        console.log("succeded")
+      });
+      channel1.bind('post_updated', function (post) {
+        // if we're on the home page, show an "Updated" badge
+        console.log("Updated")
+        if (window.location.pathname === "/dashboardAdmin") {
+          console.log("post updated")
+          $('a[href="dashboardAdmin/' + post._id + '"]').append('<span class="badge badge-primary badge-pill">Updated</span>');
+        }
+        var notification = new Notification("Proiectul " + post.username + " a fost actualizat.");
+        notification.onclick = function (event) {
+          window.location.href = '/dashboardAdmin/' + post._id;
+          event.preventDefault();
+          notification.close();
+        }
+      });
+
+      channel1.bind('post_posted', function (post) {
+        // if we're on the home page, show an "Updated" badge
+        console.log("postat")
+        if (window.location.pathname === "/dashboardAdmin") {
+          $('a[href="dashboardAdmin/' + post._id + '"]').append('<span class="badge badge-primary badge-pill">New</span>');
+        }
+        var notification = new Notification(post + " a postat un proiect nou");
+        notification.onclick = function (event) {
+          window.location.href = '/dashboardAdmin/' + post._id;
+          event.preventDefault();
+          notification.close();
+        }
+      });
+
+      channel2.bind('pusher:subscription_succeeded', function () {
+        console.log("succeded2")
+      });
+
+    channel2.bind('my_post_updated', function (post) {
+        // if we're on the home page, show an "Updated" badge
+        console.log("my post has been updated")
+        if (window.location.pathname === "/dashboard") {
+          console.log("post updated2")
+          $('a[href="dashboard/' + post._id + '"]').append('<span class="badge badge-primary badge-pill">Updated</span>');
+        }
+        var notification2 = new Notification("Statusul proiectului " + post.username + " a fost actualizat");
+        notification2.onclick = function (event) {
+          window.location.href = '/dashboard/' + post._id;
+          event.preventDefault();
+          notification2.close();
+        }
+      });
+
+
+    </script>
+  </body>
+  <footer class="site-footer bg-dark" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with
+            <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
+              target="_blank">Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+        <div class="col-md-3">
+          <ul class="list-unstyled footer-link">
+            <li><span class="mr-3 d-block">Address:</span><span class="text-white">34 Street Name, City Name Here,
+                United States</span></li>
+            <li><span class="mr-3 d-block">Phone:</span><span class="text-white">+1 242 4942 290</span></li>
+            <li><span class="mr-3 d-block">Fax:</span><span class="text-white">+1 242 4942 290</span></li>
+            <li><span class="mr-3 d-block">E-mail:</span><span class="text-white">info@yourdomain.com</span></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="text-white">Quick Links</h3>
+          <ul class="list-unstyled footer-link">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Works</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="text-white">Social</h3>
+          <ul class="list-unstyled footer-link d-flex footer-social">
+            <li><a href="#" class="p-2"><span class="fa fa-twitter"></span></a></li>
+            <li><a href="#" class="p-2"><span class="fa fa-facebook"></span></a></li>
+            <li><a href="#" class="p-2"><span class="fa fa-linkedin"></span></a></li>
+            <li><a href="#" class="p-2"><span class="fa fa-instagram"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    Built with <a href="https://expressjs.com/">Express.js</a>, login powered by <a
+      href="https://developer.okta.com/">Okta</a>.
+  </footer>
+
+</html>

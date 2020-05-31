@@ -1,0 +1,28 @@
+{"Structuri":[
+    {
+      "tip": "Apartament",
+      "camere": [
+        "Birou",
+        "Bucătărie",
+        "Cameră de baie",
+        "Cameră de zi",
+        "Dormitor",
+        "Hol"
+      ]
+    },
+    {
+      "tip": "Casă",
+      "camere": [
+        "Acoperiș",
+        "Birou",
+        "Bucătărie",
+        "Cameră de baie",
+        "Cameră de zi",
+        "Dormitor",
+        "Fațadă",
+        "Hol"
+      ]
+    }
+  ]
+  
+}
