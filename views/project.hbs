@@ -1,81 +1,88 @@
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1>Proiect: {{ project.username }}</h1>
-        <p class="lead">Tipul proiectului: {{project.projectType}} </p>
-        <p class="lead">Adresa: {{project.address}} </p>
-        <p class="lead">Data emiterii ofertei: {{dateFormatted}} </p>
-        <div class="informatii"> {{#if project.renovationType}}
-            <table class="table table-hover">
-                <thead>
+<div class="jumbotron jumbotron-fluid" style="background-color:transparent !important;">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="container col-md-6">
+            <h1>Proiect: {{ project.username }}</h1>
+            <div class="alert alert-success" role="alert" id="succes" style="display:none">
+                Proiectul dumneavoastră a fost acceptat de către constructor. Vedeți în calendar programarea.
+            </div>
+            <div class="alert alert-danger" role="alert" id="esec" style="display:none">
+                Proiectul dumneavoastră a fost respins de către constructor.
+            </div>
+            <p class="lead">Tipul proiectului: {{project.projectType}} </p>
+            <p class="lead">Adresa: {{project.address}} </p>
+            <p class="lead">Data emiterii ofertei: {{dateFormatted}} </p>
+            <div class="informatii"> {{#if project.renovationType}}
+                <table class="table table-hover">
+                    <thead>
 
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Lucrare</th>
-                        <th scope="col">Preț Unitate</th>
-                        <th scope="col">Număr Unități</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each objArray}}
-                    <tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Lucrare</th>
+                            <th scope="col">Preț Unitate</th>
+                            <th scope="col">Număr Unități</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each objArray}}
+                        <tr>
+                            <th scope="row">{{@index }}</th>
+                            <td>{{this.lucrare}}</td>
 
-                        <th scope="row">{{@index }}</th>
-                        <td>{{this.lucrare}}</td>
-                        <td>{{this.nrUnitati}}</td>
-                        <td>{{this.pretUnitate}}</td>
+                            <td>{{this.pretUnitate}}</td>
+                            <td contenteditable='true'>{{this.nrUnitati}}</td>
 
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>{{/if}}
-            {{#if project.details}}
-            <div class="col-md-6 element-animate">
-                <div class="media d-block media-testimonial text-center">
-                    <p>Detalii suplimentare</p>
-                    <div class="media-body">
-                        {{project.details}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{#if project.details}}
+                <div class="col-md-6 element-animate">
+                    <div class="media d-block media-testimonial text-center">
+                        <p>Detalii suplimentare</p>
+                        <div class="media-body">
+                            {{project.details}}
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            {{else}}
-            {{#with project.constructionType}}
-            <div class="list-group" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
-                        etaje:</strong> {{nrEtaje}}</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Suprafață (m2):
-                    </strong> {{suprafata}}</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
-                        camere:</strong> {{nrCamere}}</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
-                        băi:</strong> {{nrBai}}</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list"
-                    role="tab"><strong>Structură:</strong> {{structura}}
-                </a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Stadiu:</strong>
-                    {{stadiu}}
-                </a>
-            </div>
-            {{#if plan}}
-            <p>Plan personal</p>
-            <img src=".public/img/{{plan}}" class="rounded float-left" alt="...">
-            {{/if}}
+                {{/if}}
+                {{else}}
+                {{#with project.constructionType}}
+                <div class="list-group col-md-6" id="myList" role="tablist">
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
+                            etaje:</strong> {{nrEtaje}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Suprafață
+                            (m2):
+                        </strong> {{suprafata}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
+                            camere:</strong> {{nrCamere}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
+                            băi:</strong> {{nrBai}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        role="tab"><strong>Structură:</strong> {{structura}}
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        role="tab"><strong>Stadiu:</strong>
+                        {{stadiu}}
+                    </a>
+                </div>
+                {{#if plan}}
+                <p class="lead">Plan personal</p>
+                <img src=".public/img/{{plan}}" class="rounded float-left" alt="...">
+                {{/if}}
+                {{/with}}
+                {{/if}}
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane active" id="home" role="tabpanel">.a</div>
-                <div class="tab-pane" id="profile" role="tabpanel">...</div>
-                <div class="tab-pane" id="messages" role="tabpanel">..b.</div>
-                <div class="tab-pane" id="settings" role="tabpanel">...</div>
             </div>
-            {{/with}}
-
-            {{/if}}
-
+            <hr>
+            <p id="actions">
+                <a class="btn btn-primary btn-lg" id="edit-btn" role="button">Edit</a>
+            </p>
         </div>
-        <p id="actions">
-            <a class="btn btn-primary btn-lg" id="edit-btn" role="button">Edit</a>
-        </p>
+        <div class="col-md-5" id="calendar" style="display:none"> <iframe
+                src="https://calendar.google.com/calendar/b/3/embed?height=512&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FBucharest&amp;src=ZXUuc3VudC5ib2IuY29uc3RydWN0b3J1bEBnbWFpbC5jb20&amp;src=cm8ucm9tYW5pYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%230B8043&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;showDate=1&amp;showTabs=0&amp;mode=MONTH"
+                style="border-width:0" width="512" height="512" frameborder="0" scrolling="no"></iframe></div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -115,6 +122,14 @@
         editBtn.click(makeEditable);
         $("#actions").html(editBtn);
     };
+    function start() {
 
-
+        if ("{{project.status}}" == "accepted") {
+            $('#succes').css("display", "block");
+            $('#calendar').css("display", "block");
+        }
+        else if ("{{project.status}}" == "rejected")
+            $('#esec').css("display", "block");
+    }
+    start();
 </script>
