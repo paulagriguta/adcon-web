@@ -32,20 +32,26 @@ function Lucrare(lucrare, nrUnitati, pretUnitate) {
 }
 router.get('/:id', (req, res, next) => {
     Project.findOne({ _id: req.params.id }).exec((err, project) => {
-     
+
         const dateTimeFormat = new Intl.DateTimeFormat('UK', { year: 'numeric', month: '2-digit', day: '2-digit' })
-        var dateFormatted= dateTimeFormat.format(project.date)
-        var projL = project.renovationType;
-        var obj;
-        var objArray = []
-        for (var i = 0; i < projL.lucrare.length; i++) {
-
-            obj = new Lucrare(projL.lucrare[i], projL.nrUnitati[i], "20");
-
-            objArray.push(obj);
-        }
-        
-        res.render('projectAdmin', { project, objArray, dateFormatted });
+        var dateFormatted = dateTimeFormat.format(project.date)
+        if (project.projectType == 'renovare' && project.renovationType) {
+            var projL = project.renovationType;
+            var obj;
+            var objArray = []
+      
+            for (var i = 0; i < projL.lucrare.length; i++) {
+      
+              obj = new Lucrare(projL.lucrare[i], projL.nrUnitati[i], "20");
+      
+              objArray.push(obj);
+            }
+            console.log(objArray)
+            res.render('projectAdmin', { project, objArray, dateFormatted });
+          }
+          else {
+            res.render('projectAdmin', { project, dateFormatted });
+          }
     });
 });
 
@@ -67,4 +73,13 @@ router.post('/:id', (req, res, next) => {
     });
 });
 
+router.post('/calendar/:id', (req, res, next) => {
+    console.log("calendar")
+    res.redirect('/adaugaCalendar');
+});
+router.get('/calendar/', (req, res, next) => {
+    console.log("paramtrii")
+    console.log(req.params)
+  //  res.redirect('/adaugaCalendar');
+});
 module.exports = router;

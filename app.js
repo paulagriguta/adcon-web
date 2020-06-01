@@ -28,6 +28,7 @@ const calendarRouter = require("./routes/calendar")
 const pdfRouter = require("./routes/pdf");
 const uploadRouter = require("./routes/upload");
 const dashboardAdminRouter = require("./routes/dashboardAdmin");
+const adaugaCalendarRouter = require("./routes/adaugaCalendar");
 
 var conString = "mongodb+srv://paula:pw2020@pw2020-zxqyp.mongodb.net/proiect?retryWrites=true&w=majority";
 mongoose.connect(conString, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -127,6 +128,7 @@ app.use('/services', servicesRouter);
 app.use('/my-project', loginRequired, calendarRouter);
 app.use('/pdf', loginRequired, pdfRouter);
 app.use('/upload', loginRequired, uploadRouter);
+app.use('/adaugaLucrare', adminRequired, adaugaCalendarRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
