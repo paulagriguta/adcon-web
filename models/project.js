@@ -29,15 +29,16 @@ const projectsSchema = new mongoose.Schema({
         }
     },
     constructionType: {
-        type: [{
+        type: {
             nrEtaje: { type: Number },
             areMansarda: { type: Boolean },
             structura: { type: String },
             suprafata: { type: Number },
             nrCamere: { type: Number },
             nrBai: { type: Number },
-            stadiu: { type: String }
-        }]
+            stadiu: { type: String }, 
+            plan: { type: String }
+        }
     },
     priceTotal: {
         type: Number

@@ -35,10 +35,11 @@ router.get('/:id', (req, res, next) => {
     var dateFormatted = dateTimeFormat.format(project.date)
     console.log(project)
 
-    if (project.projectType == 'renovare') {
+    if (project.projectType == 'renovare' && project.renovationType) {
       var projL = project.renovationType;
       var obj;
       var objArray = []
+
       for (var i = 0; i < projL.lucrare.length; i++) {
 
         obj = new Lucrare(projL.lucrare[i], projL.nrUnitati[i], "20");
@@ -51,7 +52,7 @@ router.get('/:id', (req, res, next) => {
     else {
       res.render('project', { project, dateFormatted });
     }
-   
+
   });
 });
 

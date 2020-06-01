@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="fname">Nume</label>
@@ -126,9 +126,35 @@
                                 </div>
                             </div>
                             <div class="row">
+
                                 <div class="form-check form-check">
-                                    <label for="file">Adaugă propriul plan</label>
-                                    <input type='file' name='fileUploaded' class="form-control-file">
+                                    <label for="fileL">Adaugă propriul plan</label>
+                                    <input type="file" id="file" name="fileUploaded" class="form-control-file">
+                                </div>
+
+                            </div>
+                            <div class=" row">
+                                <div class="col-md-12 form-group">
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStadiu" id="tipBetonArmat" value="Nefinisat">
+                                        <label class="form-check-label" for="tipStadiu"
+                                            style="text-align: center;">Nefinisat</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStadiu" id="tipCaramida" value="Semifinisat">
+                                        <label class="form-check-label" for="tipStadiu"
+                                            style="text-align: right;">Semifinisat</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStadiu" id="tipLemn" value="Finisat">
+                                        <label class="form-check-label" for="tipStadiu"
+                                            style="text-align: center;">Finisat</label>
+                                    </div>
+                                    <div class="form-check form-check-inline col-md-6">
+                                        <input type="radio" name="tipStadiu" id="tipLemn" value="Ultrafinisat">
+                                        <label class="form-check-label" for="tipStadiu"
+                                            style="text-align: center;">Ultrafinisat</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -137,13 +163,12 @@
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipCladire" value="Casa" >
+                                        <input type="radio" name="tipCladire" value="Casa">
                                         <label class="form-check-label" for="proiectRenovare"
                                             style="text-align: center;">Casă</label>
                                     </div>
                                     <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipCladire" value="Apartament"
-                                           >
+                                        <input type="radio" name="tipCladire" value="Apartament">
                                         <label class="form-check-label" for="proiectRenovare"
                                             style="text-align: center;">Apartament</label>
                                     </div>
@@ -166,12 +191,12 @@
                             </div>
                             <div class="row" style="display:none">
                                 <div class="col-md-12 form-group">
-                                     <ul class="preturi" name="preturi" ></ul>
+                                    <ul class="preturi" name="preturi"></ul>
                                     {{#each preturi}}
-                                   <div class="form-check" id="listaPreturi">
+                                    <div class="form-check" id="listaPreturi">
                                         <input type="checkbox" class="form-check-input lista"
                                             id="listaPreturi{{@index}}" name="listaPreturi" value="{{this}}" />
-                                    </div>                                   
+                                    </div>
                                     {{/each}}
                                     </ul>
                                 </div>
@@ -358,10 +383,20 @@
         var x2 = document.getElementById("proiectRenovare").checked;
     }
 
-    $("#save").click(function () 
-        { console.log("ai salvat")
-            $("#send").css("display", "block");
-            $("#download").css("display", "block");
-        })
+    $("#save").click(function () {
+        console.log("ai salvat")
+        $("#send").css("display", "block");
+        $("#download").css("display", "block");
+    })
 
+    function upload() {
+        var formData = new FormData();
+        var imagefile = document.querySelector('#file');
+        formData.append("fileUploaded" , imagefile.files[0]);
+        axios.post('/my-project/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
 </script>

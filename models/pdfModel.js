@@ -17,12 +17,12 @@ const pdfSchema = new mongoose.Schema({
     },
     projectType: {
         type: String,
-        default:"constructie"
-       
+        default: "constructie"
+
     },
     building: {
         type: String,
-        default:""
+        default: ""
     },
     renovationType: {
         type: {
@@ -32,16 +32,16 @@ const pdfSchema = new mongoose.Schema({
         }
     },
     constructionType: {
-        type: [{
+        type: {
             nrEtaje: { type: Number },
             areMansarda: { type: Boolean },
             structura: { type: String },
             suprafata: { type: Number },
             nrCamere: { type: Number },
             nrBai: { type: Number },
-            stadiu: { type: String }, 
-            plan: {type: String}
-        }]
+            stadiu: { type: String },
+            plan: { type: String }
+        }
     },
     priceTotal: {
         type: Number
@@ -55,10 +55,10 @@ const pdfSchema = new mongoose.Schema({
         default: Date.now
     },
     status: {
-        type: String, 
+        type: String,
         default: "pending"
 
-    }, vaEuro: {type:Number}
+    }, vaEuro: { type: Number }
 
 })
 

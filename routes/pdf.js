@@ -103,7 +103,7 @@ router.get('/', async (req, res) => {
         }
         else {
             var mansarda;
-            var constructie = js.constructionType[0]
+            var constructie = js.constructionType
             console.log(constructie);
             if (constructie.areMansarda == 'on')
                 mansarda = "DA"
@@ -140,6 +140,10 @@ router.get('/', async (req, res) => {
                     {
                         text: [{ text: 'Mansardă: ', style: { bold: true } },
                         `${mansarda}`]
+                    },
+                    {
+                        text: [{ text: 'Stadiu: ', style: { bold: true } },
+                        `${constructie.stadiu}`]
                     },
                     { text: 'Plan personal: ', style: { bold: true } }
 

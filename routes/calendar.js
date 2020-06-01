@@ -1,7 +1,7 @@
 const Structure = require('../models/structure')
 const Project = require('../models/project')
 const Pdf = require('../models/pdfModel')
-
+const fileUpload = require('express-fileupload');
 const express = require('express')
 const router = express.Router()
 var bodyParser = require("body-parser")
@@ -15,7 +15,7 @@ let localitati = JSON.parse(rawdata);
 let renovareRaw = fs.readFileSync('renovare.json');
 let listaRenovare = JSON.parse(renovareRaw);
 
-
+router.use(fileUpload());
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 var user;
@@ -53,7 +53,22 @@ router.get('/', (req, res) => {
 });
 
 router.post('/save', async (req, res) => {
-    console.log(req.body)
+ 
+    var form = new formidable.IncomingForm();
+    //Formidable uploads to operating systems tmp dir by default
+    form.uploadDir = "./public/img";       //set upload directory
+    form.keepExtensions = true;     //keep file extension
+    console.log(form)
+    form.parse(req);
+
+    form.on('fileBegin', function (name, file) {
+        console.log(file);
+        file.path = "./public/img" + file.name;
+    });
+
+    form.on('file', function (name, file) {
+        console.log('Uploaded ' + file.name);
+    });
     getExchangeRate('EUR', 'RON').then((data) => {
         var valEuro = data
         console.log(valEuro)
@@ -75,25 +90,25 @@ router.post('/save', async (req, res) => {
                 suprafata: req.body.suprafata,
                 nrCamere: req.body.nrCamere,
                 nrBai: req.body.nrBai,
-                stadiu: req.body.stadiu, 
+                stadiu: req.body.tipStadiu,
                 plan: req.body.fileUploaded
             }, details: req.body.message,
             valEuro: valEuro
-    
+
         })
         try {
             pdf.save().then((err, post) => {
                 console.log("saved")
             })
             res.status(204).send();
-    
+
         }
         catch {
             res.status(400).json({ message: err.message })
         }
     })
 
-   
+
 })
 
 router.post('/', (req, res) => {
@@ -109,7 +124,9 @@ router.post('/', (req, res) => {
 
 })
 router.post('/upload', (req, res) => {
-    var form = new formidable.IncomingForm();
+    console.log("fac upload")
+    console.log(req.body)
+    /*var form = new formidable.IncomingForm();
     //Formidable uploads to operating systems tmp dir by default
     form.uploadDir = "./public/img";       //set upload directory
     form.keepExtensions = true;     //keep file extension
@@ -122,15 +139,28 @@ router.post('/upload', (req, res) => {
 
     form.on('file', function (name, file) {
         console.log('Uploaded ' + file.name);
-    });
+    });*/
+    res.status(204).send();
 
-    res.redirect('/my-project');
 });
 
 router.post('/:id', (req, res, next) => {
 
     // console.log(req.body.tipProiect)
     const { lname, fname, tipProiect, adresa } = req.body;
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let sampleFile = req.files.sampleFile;
+
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv('./public/img/filename.jpg', function (err) {
+        if (err)
+            return res.status(500).send(err);
+
+    });
 
     proiect = new Project({
         username: req.body.lname + " " + req.body.fname,
@@ -150,7 +180,8 @@ router.post('/:id', (req, res, next) => {
             suprafata: req.body.suprafata,
             nrCamere: req.body.nrCamere,
             nrBai: req.body.nrBai,
-            stadiu: req.body.stadiu
+            stadiu: req.body.tipStadiu,
+            plan: req.body.fileUploaded
         }, details: req.body.message
 
     })
