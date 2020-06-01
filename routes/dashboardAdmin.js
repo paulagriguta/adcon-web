@@ -39,25 +39,26 @@ router.get('/:id', (req, res, next) => {
             var projL = project.renovationType;
             var obj;
             var objArray = []
-      
+
             for (var i = 0; i < projL.lucrare.length; i++) {
-      
-              obj = new Lucrare(projL.lucrare[i], projL.nrUnitati[i], "20");
-      
-              objArray.push(obj);
+
+                obj = new Lucrare(projL.lucrare[i], projL.nrUnitati[i], "20");
+
+                objArray.push(obj);
             }
             console.log(objArray)
             res.render('projectAdmin', { project, objArray, dateFormatted });
-          }
-          else {
+        }
+        else {
             res.render('projectAdmin', { project, dateFormatted });
-          }
+        }
     });
 });
 
 router.post('/:id', (req, res, next) => {
+    console.log(req.body.body)
     Project.findByIdAndUpdate(req.params.id, { status: req.body.body }, (err, post) => {
-
+        console.log(req.body.body)
         let Pusher = require('pusher');
         let pusher = new Pusher({
             appId: process.env.PUSHER_APP_ID,
@@ -73,13 +74,4 @@ router.post('/:id', (req, res, next) => {
     });
 });
 
-router.post('/calendar/:id', (req, res, next) => {
-    console.log("calendar")
-    res.redirect('/adaugaCalendar');
-});
-router.get('/calendar/', (req, res, next) => {
-    console.log("paramtrii")
-    console.log(req.params)
-  //  res.redirect('/adaugaCalendar');
-});
 module.exports = router;

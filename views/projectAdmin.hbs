@@ -3,6 +3,15 @@
         <div class="col-md-1"></div>
         <div class="container col-md-6">
             <h1>Proiect: {{ project.username }}</h1>
+            <div class="alert alert-success" role="alert" id="succes" style="display:none">
+                Proiectul a fost acceptat.
+            </div>
+            <div class="alert alert-danger" role="alert" id="esec" style="display:none">
+                Proiectul a fost respins.
+            </div>
+            <div class="alert alert-secondary" role="alert" id="astept" style="display:none">
+                Proiectul este în așteptare.
+            </div>
             <p class="lead">Tipul proiectului: {{project.projectType}} </p>
             <p class="lead">Adresa: {{project.address}} </p>
             <p class="lead">Data emiterii ofertei: {{dateFormatted}} </p>
@@ -74,8 +83,8 @@
 
             <p id="actions">
                 <hr>
-                <a class="btn btn-success btn-lg" role="button" data-toggle="modal"
-                    data-target="#adaugaLucrareCalendar">Acceptă</a>
+                <a class="btn btn-success btn-lg" role="button" data-toggle="modal" data-target="#adaugaLucrareCalendar"
+                    id="accept-btn">Acceptă</a>
                 <a class="btn btn-danger btn-lg" id="refuse-btn" role="button">Refuză</a>
             </p>
         </div>
@@ -103,8 +112,8 @@
             </div> -->
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="accept-btn">Send message</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
+            <button type="button" class="btn btn-primary">Adaugă lucrarea la calendar</button>
         </div>
     </div>
 </div>
@@ -118,9 +127,9 @@
 
     $('#accept-btn').click(function () {
         // capture the new post content and send to backend
-        postContent = $("#editable-post-body").val();
-        $('#refuse-btn').prop('disabled', true);
-        $('#accept-btn').prop('disabled', true);
+        //  $('#refuse-btn').prop('disabled', true);
+        //$('#accept-btn').prop('disabled', true);
+        console.log("accepted")
         axios.post("/dashboardAdmin/" + postId, { body: "accepted" });
         //axios.post("/dashboardAdmin/calendar/" + postId, { body: "accepted" })
 
@@ -129,11 +138,22 @@
     $('#refuse-btn').click(function () {
         // capture the new post content and send to backend
         postContent = $("#editable-post-body").val();
-        $('#accept-btn').prop('disabled', true);
-        $('#refuse-btn').prop('disabled', true);
+        //  $('#accept-btn').prop('disabled', true);
+        // $('#refuse-btn').prop('disabled', true);
         axios.post("/dashboardAdmin/" + postId, { body: "rejected" });
     });
 
+    function start() {
 
+        if ("{{project.status}}" == "accepted") {
+            $('#succes').css("display", "block");
+            $('#calendar').css("display", "block");
+        }
+        else if ("{{project.status}}" == "rejected")
+            $('#esec').css("display", "block");
+        else
+            $('#astept').css("display", "block");
+    }
+    start();
 
 </script>
