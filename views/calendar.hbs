@@ -19,17 +19,17 @@
                 <form method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label class="font-italic" for="fname">Nume</label>
+                            <label class="font-weight-bold" for="fname">Nume</label>
                             <input type="text" class="form-control form-control-lg" id="lname" name="lname">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="font-italic" for="lname">Prenume</label>
+                            <label class="font-weight-bold" for="lname">Prenume</label>
                             <input type="text" class="form-control form-control-lg" id="fname" name="fname">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <label class="font-italic" for="lucrare">Localitate lucrare</label>
+                            <label class="font-weight-bold" for="lucrare">Localitate lucrare</label>
                             <select class="form-control form-control-lg" id="selecteazaLocalitate" name="localitate">
                                 {{#each Localitati}}
                                 <option value={{this}}>{{this}}</option>
@@ -41,14 +41,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <label class="font-italic" for="lucrare">Adresă</label>
+                            <label class="font-weight-bold" for="lucrare">Adresă</label>
                             <input type="text" class="form-control form-control-lg" id="adresa" name="adresa">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <label class="font-italic" for="lucrare">Tipul proiectului</label>
+                            <label class="font-weight-bold" for="lucrare">Tipul proiectului</label>
                             <div class="form-check form-check-inline input-group-text col-md-6 ">
                                 <input class="form-check-input" type="radio" name="tipProiect" value="renovare"
                                     id="proiectRenovare" onchange="arataContinuare()">
@@ -70,6 +70,8 @@
                             <h3>Proiect Construcție Casă</h3>
                             <div class="row">
                                 <div class="col-md-12 form-group">
+                                    <label class="font-weight-bold" for="continuareConstructie">Bifați dacă locuința are
+                                        mansardă</label>
                                     <div class="form-check" id="checkMansarda">
                                         <input type="checkbox" class="form-check-input lista" id="mansarda"
                                             name="mansarda" checked="check" />
@@ -78,20 +80,25 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <label class="font-weight-bold col-md-12" for="continuareConstructie">Structura
+                                    clădirii</label>
                                 <div class="col-md-12 form-group">
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStructura" id="tipBetonArmat" value="Beton Armat">
-                                        <label class="form-check-label" for="tipStructura"
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStructura"
+                                            id="tipBetonArmat" value="Beton Armat">
+                                        <label class="form-check-label" for="tipBetonArmat"
                                             style="text-align: center;">Beton Armat</label>
                                     </div>
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStructura" id="tipCaramida" value="Cărămidă">
-                                        <label class="form-check-label" for="tipStructura"
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStructura"
+                                            id="tipCaramida" value="Cărămidă">
+                                        <label class="form-check-label" for="tipCaramida"
                                             style="text-align: right;">Cărămidă</label>
                                     </div>
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStructura" id="tipLemn" value="Lemn">
-                                        <label class="form-check-label" for="tipStructura"
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStructura" id="tipLemn"
+                                            value="Lemn">
+                                        <label class="form-check-label" for="tipLemn"
                                             style="text-align: center;">Lemn</label>
                                     </div>
 
@@ -99,28 +106,28 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12" style="white-space:nowrap">
-                                    <label for="etaje">Etaje</label>
+                                    <label class="font-weight-bold" for="etaje">Etaje</label>
                                     <input type="text" class="form-control form-control-lg col-md-6" name="etaje"
                                         id="etaje">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12" style="white-space:nowrap">
-                                    <label for="suprafata">Suprafață</label>
+                                    <label class="font-weight-bold" for="suprafata">Suprafață (mp)</label>
                                     <input type="text" class="form-control form-control-lg col-md-6" name="suprafata"
                                         id="suprafata">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12" style="white-space:nowrap">
-                                    <label for="nrCamere">Număr camere</label>
+                                    <label class="font-weight-bold" for="nrCamere">Număr camere</label>
                                     <input type="text" class="form-control form-control-lg col-md-6" name="nrCamere"
                                         id="nrCamere">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12" style="white-space:nowrap">
-                                    <label for="nrBai" class="col-md-6">Număr băi</label>
+                                    <label class="font-weight-bold" for="nrBai">Număr băi</label>
                                     <input type="text" class="form-control form-control-lg col-md-6" name="nrBai"
                                         id="nrBai">
                                 </div>
@@ -128,31 +135,39 @@
                             <div class="row">
 
                                 <div class="form-check form-check">
-                                    <label for="fileL">Adaugă propriul plan</label>
-                                    <input type="file" id="file" name="fileUploaded" class="form-control-file">
+                                    <label class="font-weight-bold" for="fileL">Adaugă propriul plan</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Selectează fișierul</label>
+                                    </div>
                                 </div>
-
                             </div>
+                            <br>
                             <div class=" row">
                                 <div class="col-md-12 form-group">
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStadiu" id="tipBetonArmat" value="Nefinisat">
-                                        <label class="form-check-label" for="tipStadiu"
+                                    <label class="font-weight-bold">Stadiul final al lucrării</label>
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStadiu" id="nefinisat"
+                                            value="Nefinisat">
+                                        <label class="form-check-label" for="nefinisat"
                                             style="text-align: center;">Nefinisat</label>
                                     </div>
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStadiu" id="tipCaramida" value="Semifinisat">
-                                        <label class="form-check-label" for="tipStadiu"
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStadiu" id="semifinisat"
+                                            value="Semifinisat">
+                                        <label class="form-check-label" for="semifinisat"
                                             style="text-align: right;">Semifinisat</label>
                                     </div>
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStadiu" id="tipLemn" value="Finisat">
-                                        <label class="form-check-label" for="tipStadiu"
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStadiu" id="finisat"
+                                            value="Finisat">
+                                        <label class="form-check-label" for="finisat"
                                             style="text-align: center;">Finisat</label>
                                     </div>
-                                    <div class="form-check form-check-inline col-md-6">
-                                        <input type="radio" name="tipStadiu" id="tipLemn" value="Ultrafinisat">
-                                        <label class="form-check-label" for="tipStadiu"
+                                    <div class="form-check form-check-inline input-group-text col-md-6">
+                                        <input class="form-check-input" type="radio" name="tipStadiu" id="ultrafinisat"
+                                            value="Ultrafinisat">
+                                        <label class="form-check-label" for="ultrafinisat"
                                             style="text-align: center;">Ultrafinisat</label>
                                     </div>
                                 </div>
@@ -162,7 +177,7 @@
                             <h3>Proiect Renovare</h3>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <label class="font-italic" for="proiectRenovare">Tipul clădirii</label>
+                                    <label class="font-weight-bold" for="proiectRenovare">Tipul clădirii</label>
                                     <div class="form-check form-check-inline input-group-text col-md-6">
                                         <input class="form-check-input" type="radio" name="tipCladire" value="Casa"
                                             id="renovareCasa">
@@ -178,7 +193,7 @@
                                 </div>
                             </div>
 
-                            <label class="font-italic" for="proiectRenovare">Selecteaza elementele proiectului:
+                            <label class="font-weight-bold" for="proiectRenovare">Selecteaza elementele proiectului
                             </label>
                             <div class="row">
                                 <div class="col-md-12 form-group">
@@ -196,13 +211,13 @@
                             </div>
                             <div class="row" style="display:none">
                                 <div class="col-md-12 form-group">
-                                    <ul class="preturi" name="preturi"></ul>
-                                    {{#each preturi}}
-                                    <div class="form-check" id="listaPreturi">
-                                        <input type="checkbox" class="form-check-input lista"
-                                            id="listaPreturi{{@index}}" name="listaPreturi" value="{{this}}" />
-                                    </div>
-                                    {{/each}}
+                                    <ul class="preturi" name="preturi">
+                                        {{#each preturi}}
+                                        <div class="form-check" id="listaPreturi">
+                                            <input type="checkbox" class="form-check-input lista"
+                                                id="listaPreturi{{@index}}" name="listaPreturi" value="{{this}}" />
+                                        </div>
+                                        {{/each}}
                                     </ul>
                                 </div>
                             </div>
@@ -319,21 +334,23 @@
         var x = document.getElementById("m2" + index);
         var y = document.getElementById("unitate" + index).textContent;
         var z = document.getElementById("listaPreturi" + index).checked = "true";
-        var label = document.createElement("label");
+        var label = document.createElement("div");
         var checkb = document.getElementById("listaRenovare" + index);
         if (checkb.checked) {
+            x.setAttribute("class", "form-row");
+            label.setAttribute("class", "input-group-text col-sm-3");
             label.setAttribute("name", "listaUnitati");
             label.setAttribute("for", "listaUnitati");
             var node = document.createTextNode(y);
             label.append(node);
             var inp = document.createElement("input");
             inp.setAttribute("type", "text");
-            inp.setAttribute("class", "form-control form-control-lg");
+            inp.setAttribute("class", "form-control form-control-lg col-sm-3");
             inp.setAttribute("name", "listaNrUnitati");
             inp.setAttribute("id", "inp" + index);
             inp.setAttribute("onchange", "addPret(" + index + ")");
-            x.appendChild(label);
             x.appendChild(inp);
+            x.appendChild(label);
         }
         else {
             while (x.firstChild) {
@@ -347,6 +364,7 @@
         listaPreturiUnitati.push(y);
         pretPartial[index] = x * y;
     }
+
     function calculeazaPret() {
 
         pretPartial.forEach((val) => pretRenovare += val);
