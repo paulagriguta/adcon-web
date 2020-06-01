@@ -7,6 +7,7 @@
             <p class="lead">Adresa: {{project.address}} </p>
             <p class="lead">Data emiterii ofertei: {{dateFormatted}} </p>
             <div class="informatii">
+                {{#if project.renovationType}}
                 <table class="table table-hover">
                     <thead>
 
@@ -23,14 +24,14 @@
 
                             <th scope="row">{{@index }}</th>
                             <td>{{this.lucrare}}</td>
-                            <td>{{this.nrUnitati}}</td>
+
                             <td>{{this.pretUnitate}}</td>
+                            <td>{{this.nrUnitati}}</td>
 
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
-
                 {{#if project.details}}
                 <div class="col-md-6 element-animate">
                     <div class="media d-block media-testimonial text-center">
@@ -42,8 +43,37 @@
                     </div>
                 </div>
                 {{/if}}
+                {{else}}
+                {{#with project.constructionType}}
+                <div class="list-group" id="myList" role="tablist">
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
+                            etaje:</strong> {{nrEtaje}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Suprafață
+                            (m2):
+                        </strong> {{suprafata}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
+                            camere:</strong> {{nrCamere}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"><strong>Număr
+                            băi:</strong> {{nrBai}}</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        role="tab"><strong>Structură:</strong> {{structura}}
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        role="tab"><strong>Stadiu:</strong>
+                        {{stadiu}}
+                    </a>
+                </div>
+                {{#if plan}}
+                <p class="lead">Plan personal</p>
+                <img src=".public/img/{{plan}}" class="rounded float-left" alt="...">
+                {{/if}}
+                {{/with}}
+
+                {{/if}}
             </div>
+
             <p id="actions">
+                <hr>
                 <a class="btn btn-success btn-lg" role="button" data-toggle="modal"
                     data-target="#adaugaLucrareCalendar">Acceptă</a>
                 <a class="btn btn-danger btn-lg" id="refuse-btn" role="button">Refuză</a>
@@ -102,7 +132,6 @@
         $('#accept-btn').prop('disabled', true);
         $('#refuse-btn').prop('disabled', true);
         axios.post("/dashboardAdmin/" + postId, { body: "rejected" });
-
     });
 
 
