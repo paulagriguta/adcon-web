@@ -9,6 +9,9 @@
             <div class="alert alert-danger" role="alert" id="esec" style="display:none">
                 Proiectul dumneavoastră a fost respins de către constructor.
             </div>
+              <div class="alert alert-secondary" role="alert" id="astept" style="display:none">
+                Proiectul dumneavoastră este în așteptare.
+            </div>
             <p class="lead">Tipul proiectului: {{project.projectType}} </p>
             <p class="lead">Adresa: {{project.address}} </p>
             <p class="lead">Data emiterii ofertei: {{dateFormatted}} </p>
@@ -130,6 +133,8 @@
         }
         else if ("{{project.status}}" == "rejected")
             $('#esec').css("display", "block");
+            else
+            $('#astept').css("display", "block");
     }
     start();
 </script>
