@@ -149,5 +149,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-
+oidc.on('ready', () => {
+  app.listen(4000, () => console.log('app started'));
+});
 module.exports = app;

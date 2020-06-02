@@ -20,12 +20,13 @@ router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 var user;
 var proiect;
+var valEuro;
 const url = require('url')
 router.get('/', (req, res) => {
 
     user = req.user.profile;
     var structs = []
-    var valEuro;
+
     getExchangeRate('EUR', 'RON').then((data) => {
         valEuro = data
         Structure.find({}, (error, structures) => {
@@ -69,44 +70,45 @@ router.post('/save', async (req, res) => {
     form.on('file', function (name, file) {
         console.log('Uploaded ' + file.name);
     });
-    getExchangeRate('EUR', 'RON').then((data) => {
-        var valEuro = data
-        console.log(valEuro)
-        var pdf = new Pdf({
-            username: req.body.lname + " " + req.body.fname,
-            login: req.user.profile.login,
-            address: req.body.localitate + " " + req.body.adresa,
-            projectType: req.body.tipProiect,
-            building: req.body.tipCladire,
-            renovationType: {
-                lucrare: req.body.listaRenovare,
-                nrUnitati: req.body.listaNrUnitati,
-                pretUnitate: req.body.listaPreturi
-            },
-            constructionType: {
-                nrEtaje: req.body.etaje,
-                areMansarda: req.body.areMansarda,
-                structura: req.body.tipStructura,
-                suprafata: req.body.suprafata,
-                nrCamere: req.body.nrCamere,
-                nrBai: req.body.nrBai,
-                stadiu: req.body.tipStadiu,
-                plan: req.body.fileUploaded
-            }, details: req.body.message,
-            valEuro: valEuro
 
-        })
-        try {
-            pdf.save().then((err, post) => {
-                console.log("saved")
-            })
-            res.status(204).send();
-
-        }
-        catch {
-            res.status(400).json({ message: err.message })
-        }
+    console.log("valEuro")
+    console.log(valEuro)
+    var pdf = new Pdf({
+        valEuro: "" + valEuro,
+        username: req.body.lname + " " + req.body.fname,
+        login: req.user.profile.login,
+        address: req.body.localitate + " " + req.body.adresa,
+        projectType: req.body.tipProiect,
+        building: req.body.tipCladire,
+        renovationType: {
+            lucrare: req.body.listaRenovare,
+            nrUnitati: req.body.listaNrUnitati,
+            pretUnitate: req.body.listaPreturi
+        },
+        constructionType: {
+            nrEtaje: req.body.etaje,
+            areMansarda: req.body.areMansarda,
+            structura: req.body.tipStructura,
+            suprafata: req.body.suprafata,
+            nrCamere: req.body.nrCamere,
+            nrBai: req.body.nrBai,
+            stadiu: req.body.tipStadiu,
+            plan: req.body.fileUploaded
+        },
+        details: req.body.message
     })
+    try {
+
+        pdf.save().then((err, post) => {
+            console.log("saved")
+        })
+        res.status(204).send();
+
+    }
+    catch {
+        res.status(400).json({ message: err.message })
+    }
+
 
 
 })

@@ -9,8 +9,8 @@ router.use(bodyParser.urlencoded({ extended: false }))
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'eu.sunt.bob.constructorul@gmail.com',
-        pass: 'hhtvnbgjpwinkkfd'
+        user: 'adcon.web@gmail.com',
+        pass: 'dyxdunmeostmyubi'
     }
 });
 router.get('/', (req, res) => {
