@@ -2,56 +2,87 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/dashboard.css">
-<section class="section border-t">
-    <div class="container">
-        <div class="row justify-content-center mb-5 element-animate">
-            <div class="col-md-8 text-center">
-                <h2 class="text-uppercase heading border-bottom mb-4">Proiecte În Așteptare</h2>
-                <div class="list-group">
-                    {{#each newProjects }}
-                    <a href="dashboard/{{ this._id }}" class="list-group-item">
-                        Proiect: {{ this.username}}
-                    </a>
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="section border-t">
-    <div class="container">
-        <div class="row justify-content-center mb-5 element-animate">
-            <div class="col-md-8 text-center">
-                <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Acceptate</h2>
-                <div class="list-group">
-                    {{#each acceptedProjects }}
-                    <a href="dashboard/{{ this._id }}" class="list-group-item">
-                        Proiect: {{ this.username}}
-                    </a>
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<style>
+.my-content-left {
+  border-right: 1px solid grey;
+}
+.my-content-right {
+  border-left: 1px solid grey;
+}
+</style>
+<div class="row ">
+    <div class="col-md-1 my-content-right "></div>
+    <div class="col-md-2">
+         <section class="section border-t">
+        <ul class="navbar-nav mx-auto pl-lg-5 pl-0 d-flex align-items-center">
+            <li class="nav-item">
+               <a class="nav-link" href="/dashboard">
+                    <span class="d-inline-block"> <h5>Proiectele mele</h5></span>
+                </a>
+            </li>
 
-<section class="section border-t">
-    <div class="container">
-        <div class="row justify-content-center mb-5 element-animate">
-            <div class="col-md-8 text-center">
-                <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Respinse</h2>
-                <div class="list-group">
-                    {{#each rejectedProjects }}
-                    <a href="dashboard/{{ this._id }}" class="list-group-item">
-                        Proiect: {{ this.username}}
-                    </a>
-                    {{/each}}
+            <li class="nav-item cta-btn2">
+                <a class="nav-link" href="/users/logout">
+                    <span class="d-inline-block px-4 py-2 border">Ieși din cont</span>
+                </a>
+            </li>
+        </ul>
+        </section>
+    </div>
+
+    <div class="col-md-1  my-content-left" ></div>
+    <div class="col-md-8">
+        <section class="section border-t">
+            <div class="container">
+                <div class="row justify-content-center mb-5 element-animate">
+                    <div class="col-md-8 text-center">
+                        <h2 class="text-uppercase heading border-bottom mb-4">Proiecte În Așteptare</h2>
+                        <div class="list-group">
+                            {{#each newProjects }}
+                            <a href="dashboard/{{ this._id }}" class="list-group-item">
+                                Proiect: {{ this.username}}
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+        <section class="section border-t">
+            <div class="container">
+                <div class="row justify-content-center mb-5 element-animate">
+                    <div class="col-md-8 text-center">
+                        <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Acceptate</h2>
+                        <div class="list-group">
+                            {{#each acceptedProjects }}
+                            <a href="dashboard/{{ this._id }}" class="list-group-item">
+                                Proiect: {{ this.username}}
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="section border-t">
+            <div class="container">
+                <div class="row justify-content-center mb-5 element-animate">
+                    <div class="col-md-8 text-center">
+                        <h2 class="text-uppercase heading border-bottom mb-4">Proiecte Respinse</h2>
+                        <div class="list-group">
+                            {{#each rejectedProjects }}
+                            <a href="dashboard/{{ this._id }}" class="list-group-item">
+                                Proiect: {{ this.username}}
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script>

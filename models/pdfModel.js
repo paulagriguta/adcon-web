@@ -58,7 +58,12 @@ const pdfSchema = new mongoose.Schema({
         type: String,
         default: "pending"
 
-    }, vaEuro: { type: Number }
+    },
+    valEuro: {
+        type: Number,
+        default: "4.84",
+        required: true
+    }
 
 })
 

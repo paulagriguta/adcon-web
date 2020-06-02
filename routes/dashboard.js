@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const axios = require('axios');
 const Project = require('../models/project')
 // Display the dashboard page
 router.get("/", async (req, res) => {
@@ -68,13 +68,28 @@ router.post('/:id', (req, res, next) => {
     });
 
     pusher.trigger('notifications', 'post_updated', post, req.headers['x-socket-id']);
-    console.log(pusher)
+    //  console.log(pusher)
     res.send('');
   });
 });
+const url = require('url')
+router.post('/:id/pdf', (req, res, next) => {
+  console.log("req")
+  console.log(req.body)
+  res.redirect(url.format({
+    pathname: "/pdf",
+    query: {
+      id: req.body.id
+    }
+  }));
+
+});
+
+
 function Lucrare(lucrare, nrUnitati, pretUnitate) {
   this.lucrare = lucrare;
   this.nrUnitati = nrUnitati;
   this.pretUnitate = pretUnitate;
 }
+
 module.exports = router;

@@ -18,14 +18,19 @@ let listaRenovare = JSON.parse(renovareRaw);
 router.use(fileUpload());
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
+
+router.use(bodyParser.json())
+   .use(bodyParser.urlencoded());
 var user;
 var proiect;
+var valEuro;
+var poza;
 const url = require('url')
 router.get('/', (req, res) => {
 
     user = req.user.profile;
     var structs = []
-    var valEuro;
+
     getExchangeRate('EUR', 'RON').then((data) => {
         valEuro = data
         Structure.find({}, (error, structures) => {
@@ -53,60 +58,45 @@ router.get('/', (req, res) => {
 });
 
 router.post('/save', async (req, res) => {
-
-    var form = new formidable.IncomingForm();
-    //Formidable uploads to operating systems tmp dir by default
-    form.uploadDir = "./public/img";       //set upload directory
-    form.keepExtensions = true;     //keep file extension
-    console.log(form)
-    form.parse(req);
-
-    form.on('fileBegin', function (name, file) {
-        console.log(file);
-        file.path = "./public/img" + file.name;
-    });
-
-    form.on('file', function (name, file) {
-        console.log('Uploaded ' + file.name);
-    });
-    getExchangeRate('EUR', 'RON').then((data) => {
-        var valEuro = data
-        console.log(valEuro)
-        var pdf = new Pdf({
-            username: req.body.lname + " " + req.body.fname,
-            login: req.user.profile.login,
-            address: req.body.localitate + " " + req.body.adresa,
-            projectType: req.body.tipProiect,
-            building: req.body.tipCladire,
-            renovationType: {
-                lucrare: req.body.listaRenovare,
-                nrUnitati: req.body.listaNrUnitati,
-                pretUnitate: req.body.listaPreturi
-            },
-            constructionType: {
-                nrEtaje: req.body.etaje,
-                areMansarda: req.body.areMansarda,
-                structura: req.body.tipStructura,
-                suprafata: req.body.suprafata,
-                nrCamere: req.body.nrCamere,
-                nrBai: req.body.nrBai,
-                stadiu: req.body.tipStadiu,
-                plan: req.body.fileUploaded
-            }, details: req.body.message,
-            valEuro: valEuro
-
-        })
-        try {
-            pdf.save().then((err, post) => {
-                console.log("saved")
-            })
-            res.status(204).send();
-
-        }
-        catch {
-            res.status(400).json({ message: err.message })
-        }
+console.log(poza)
+    console.log("valEuro")
+    console.log(valEuro)
+    var pdf = new Pdf({
+        valEuro: "" + valEuro,
+        username: req.body.lname + " " + req.body.fname,
+        login: req.user.profile.login,
+        address: req.body.localitate + " " + req.body.adresa,
+        projectType: req.body.tipProiect,
+        building: req.body.tipCladire,
+        renovationType: {
+            lucrare: req.body.listaRenovare,
+            nrUnitati: req.body.listaNrUnitati,
+            pretUnitate: req.body.listaPreturi
+        },
+        constructionType: {
+            nrEtaje: req.body.etaje,
+            areMansarda: req.body.areMansarda,
+            structura: req.body.tipStructura,
+            suprafata: req.body.suprafata,
+            nrCamere: req.body.nrCamere,
+            nrBai: req.body.nrBai,
+            stadiu: req.body.tipStadiu,
+            plan: poza
+        },
+        details: req.body.message
     })
+    try {
+
+        pdf.save().then((err, post) => {
+            console.log("saved")
+        })
+        res.status(204).send();
+
+    }
+    catch {
+        res.status(400).json({ message: err.message })
+    }
+
 
 
 })
@@ -124,28 +114,31 @@ router.post('/', (req, res) => {
 
 })
 router.post('/upload', (req, res) => {
-    console.log("fac upload")
-    console.log(req.body)
-    /*var form = new formidable.IncomingForm();
-    //Formidable uploads to operating systems tmp dir by default
-    form.uploadDir = "./public/img";       //set upload directory
-    form.keepExtensions = true;     //keep file extension
+    try {
+        if(!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+            let avatar = req.files.upload;
+            poza = avatar.name;
+            //Use the mv() method to place the file in upload directory (i.e. "uploads")
+            avatar.mv('./public/upload/' + avatar.name);
 
-    form.parse(req);
+            //send response
+            res.status(204).send();
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
 
-    form.on('fileBegin', function (name, file) {
-        file.path = "./public/img" + file.name;
-    });
-
-    form.on('file', function (name, file) {
-        console.log('Uploaded ' + file.name);
-    });*/
-    res.status(204).send();
-
+   // res.redirect('/my-project');
 });
 
 router.post('/:id', (req, res, next) => {
-
+console.log(poza)
     // console.log(req.body.tipProiect)
     const { lname, fname, tipProiect, adresa } = req.body;
     proiect = new Project({
@@ -167,8 +160,9 @@ router.post('/:id', (req, res, next) => {
             nrCamere: req.body.nrCamere,
             nrBai: req.body.nrBai,
             stadiu: req.body.tipStadiu,
-            plan: req.body.fileUploaded
-        }, details: req.body.message
+            plan: poza
+        }, details: req.body.message, 
+        valEuro:valEuro
 
     })
 
