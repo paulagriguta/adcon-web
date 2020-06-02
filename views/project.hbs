@@ -1,3 +1,116 @@
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #myImg:hover {
+        opacity: 0.7;
+    }
+
+    /* The Modal (background) */
+    .modal1 {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.9);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content1 {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    #caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    /* Add Animation */
+    .modal-content1,
+    #caption {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px) {
+        .modal-content {
+            width: 100%;
+        }
+    }
+</style>
 <div class="jumbotron jumbotron-fluid" style="background-color:transparent !important;">
     <div class="row">
         <div class="col-md-1"></div>
@@ -9,7 +122,7 @@
             <div class="alert alert-danger" role="alert" id="esec" style="display:none">
                 Proiectul dumneavoastră a fost respins de către constructor.
             </div>
-              <div class="alert alert-secondary" role="alert" id="astept" style="display:none">
+            <div class="alert alert-secondary" role="alert" id="astept" style="display:none">
                 Proiectul dumneavoastră este în așteptare.
             </div>
             <p class="lead">Tipul proiectului: {{project.projectType}} </p>
@@ -71,25 +184,43 @@
                     </a>
                 </div>
                 {{#if plan}}
-                <p class="lead">Plan personal</p>
-                <img src=".public/img/{{plan}}" class="rounded float-left" alt="...">
+                <p class="lead col-md-3">Plan personal</p>
+                <img id="myImg" src="./upload/{{plan}}" class="img-thumbnail" style="height:100px;width:100px">
                 {{/if}}
                 {{/with}}
                 {{/if}}
-
+                <br><br>
+                <form method="post" class="form col-md-6" action="/dashboard/{{project._id}}/pdf"><input name="id" value="{{ project._id }}" style="display:none"></input>
+                    <input type="submit" name="download" class="btn btn-secondary btn-lg btn-block"
+                        value="Descarcă PDF" />
+                </form>
             </div>
             <hr>
-            <p id="actions">
-                <a class="btn btn-primary btn-lg" id="edit-btn" role="button">Edit</a>
-            </p>
         </div>
         <div class="col-md-5" id="calendar" style="display:none"> <iframe
                 src="https://calendar.google.com/calendar/b/3/embed?height=512&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FBucharest&amp;src=ZXUuc3VudC5ib2IuY29uc3RydWN0b3J1bEBnbWFpbC5jb20&amp;src=cm8ucm9tYW5pYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%230B8043&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;showDate=1&amp;showTabs=0&amp;mode=MONTH"
                 style="border-width:0" width="512" height="512" frameborder="0" scrolling="no"></iframe></div>
     </div>
 </div>
+<div id="myModal" class="modal1">
+    <span class="close">&times;</span>
+    <img class="modal-content1" id="img01">
+    <div id="caption"></div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+    //const axios = require('axios');
+    function downloadPDF() {
+        axios({
+            method: 'post',
+            url: '/dashboard/pdf',
+            data: {
+                firstName: 'Fred',
+                lastName: 'Flintstone'
+            }
+        });
+    }
     var postId = "{{ project._id }}";
     var postContent;
     var makeEditable = function (event) {
@@ -133,8 +264,32 @@
         }
         else if ("{{project.status}}" == "rejected")
             $('#esec').css("display", "block");
-            else
+        else
             $('#astept').css("display", "block");
     }
     start();
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+
+
 </script>

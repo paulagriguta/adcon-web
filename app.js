@@ -11,6 +11,7 @@ var okta = require("@okta/okta-sdk-nodejs");
 var ExpressOIDC = require("@okta/oidc-middleware").ExpressOIDC;
 const handlebars = require('handlebars')
 const handlebarsHelpers = require('handlebars-helpers');
+var cors = require('cors')
 
 handlebarsHelpers.math({
   handlebars: handlebars
@@ -35,11 +36,13 @@ var conString = "mongodb+srv://paula:pw2020@pw2020-zxqyp.mongodb.net/proiect?ret
 mongoose.connect(conString, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 
+
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to Database'))
 
 var app = express();
 
+app.use(cors())
 var oktaClient = new okta.Client({
   orgUrl: 'https://dev-568846.okta.com',
   token: '00_RBh797mM-P0cDA0RQ2j5j5Z1nW8LntbGFOlPt9l'

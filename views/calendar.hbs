@@ -132,16 +132,7 @@
                                         id="nrBai">
                                 </div>
                             </div>
-                            <div class="row">
 
-                                <div class="form-check form-check">
-                                    <label class="font-weight-bold" for="fileL">Adaugă propriul plan</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Selectează fișierul</label>
-                                    </div>
-                                </div>
-                            </div>
                             <br>
                             <div class=" row">
                                 <div class="col-md-12 form-group">
@@ -274,15 +265,32 @@
                     </div>
 
                 </form>
-
             </div>
+
             <div class="col-md-1"></div>
             <div class="col-md-5">
-                <iframe
-                    src="https://calendar.google.com/calendar/b/3/embed?height=512&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FBucharest&amp;src=ZXUuc3VudC5ib2IuY29uc3RydWN0b3J1bEBnbWFpbC5jb20&amp;src=cm8ucm9tYW5pYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%230B8043&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;showDate=1&amp;showTabs=0&amp;mode=MONTH"
-                    style="border-width:2" width="512" height="512" frameborder="0" scrolling="no"></iframe>
+                <form method="post" enctype="multipart/form-data" action="/my-project/upload">
+
+                    <iframe
+                        src="https://calendar.google.com/calendar/b/3/embed?height=512&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FBucharest&amp;src=ZXUuc3VudC5ib2IuY29uc3RydWN0b3J1bEBnbWFpbC5jb20&amp;src=cm8ucm9tYW5pYW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&amp;color=%23039BE5&amp;color=%230B8043&amp;showTitle=1&amp;showNav=1&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;showDate=1&amp;showTabs=0&amp;mode=MONTH"
+                        style="border-width:2" width="512" height="512" frameborder="0" scrolling="no"></iframe>
+                    <div class="form-check form-check">
+                        <label class="font-weight-bold" for="fileL">Adaugă propriul plan</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="upload" multiple>
+
+                            <label class="custom-file-label" for="customFile">Selectează fișierul</label>
+
+                        </div>
+                        <br /> <br>
+                        <input type="submit" class="btn btn-warning" value="Încarcă">
+                    </div>
+
+                </form>
             </div>
+
         </div>
+    </div>
 </section>
 
 

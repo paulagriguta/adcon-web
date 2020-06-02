@@ -55,7 +55,7 @@ const projectsSchema = new mongoose.Schema({
         type: String, 
         default: "pending"
 
-    }
+    }, valEuro:{type:Number}
 
 })
 
