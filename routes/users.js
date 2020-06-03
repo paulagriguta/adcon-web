@@ -19,7 +19,7 @@ router.get("/logout", (req, res) => {
 });
 router.post("/login", (req, res) => {
   if (req.session) {
-   res.render('dashboard')
+    res.render('dashboard')
   }
 
 });

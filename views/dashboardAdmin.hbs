@@ -1,12 +1,35 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-2">
 
-        <p> Proiectele mele</p>
-        <button>Ieși din cont</button>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<style>
+.my-content-left {
+  border-right: 1px solid grey;
+}
+.my-content-right {
+  border-left: 1px solid grey;
+}
+</style>
+<div class="row">
+    <div class="col-md-1 my-content-right "></div>
+<div class="col-md-2">
+         <section class="section border-t">
+        <ul class="navbar-nav mx-auto pl-lg-5 pl-0 d-flex align-items-center">
+            <li class="nav-item">
+               <a class="nav-link" href="/dashboardAdmin">
+                    <span class="d-inline-block"> <h5>Proiecte înregistrate</h5></span>
+                </a>
+            </li>
+
+            <li class="nav-item cta-btn2">
+                <a class="nav-link" href="/users/logout">
+                    <span class="d-inline-block px-4 py-2 border">Ieși din cont</span>
+                </a>
+            </li>
+        </ul>
+        </section>
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-1 content-left"></div>
     <div class="col-md-8">
         <section class="section border-t">
             <div class="container">

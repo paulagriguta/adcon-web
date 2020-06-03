@@ -1,7 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const axios = require('axios');
 const Project = require('../models/project')
+
+const express = require("express");
+const axios = require('axios');
+const url = require('url')
+
+const router = express.Router();
+
 // Display the dashboard page
 router.get("/", async (req, res) => {
   var newProjects = [];
@@ -13,7 +17,6 @@ router.get("/", async (req, res) => {
   else {
 
     await Project.find({ login: req.user.profile.login, status: "pending" }, { username: true }).sort({ dateSubmitted: -1 }).exec((err, projects) => {
-
       projects.forEach((item) => newProjects.push(item))
       // console.log(newProjects);
     });
@@ -31,9 +34,9 @@ router.get("/", async (req, res) => {
 
 router.get('/:id', (req, res, next) => {
   Project.findOne({ _id: req.params.id }).exec((err, project) => {
+   
     const dateTimeFormat = new Intl.DateTimeFormat('UK', { year: 'numeric', month: '2-digit', day: '2-digit' })
     var dateFormatted = dateTimeFormat.format(project.date)
-    console.log(project)
 
     if (project.projectType == 'renovare' && project.renovationType) {
       var projL = project.renovationType;
@@ -46,7 +49,6 @@ router.get('/:id', (req, res, next) => {
 
         objArray.push(obj);
       }
-      console.log(objArray)
       res.render('project', { project, objArray, dateFormatted });
     }
     else {
@@ -68,14 +70,12 @@ router.post('/:id', (req, res, next) => {
     });
 
     pusher.trigger('notifications', 'post_updated', post, req.headers['x-socket-id']);
-    //  console.log(pusher)
     res.send('');
   });
 });
-const url = require('url')
+
+
 router.post('/:id/pdf', (req, res, next) => {
-  console.log("req")
-  console.log(req.body)
   res.redirect(url.format({
     pathname: "/pdf",
     query: {

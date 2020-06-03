@@ -1,7 +1,15 @@
+const Project = require('../models/project')
+
 const express = require("express");
+
 const router = express.Router();
 
-const Project = require('../models/project')
+function Lucrare(lucrare, nrUnitati, pretUnitate) {
+    this.lucrare = lucrare;
+    this.nrUnitati = nrUnitati;
+    this.pretUnitate = pretUnitate;
+}
+
 // Display the dashboard page
 router.get("/", async (req, res) => {
 
@@ -11,7 +19,7 @@ router.get("/", async (req, res) => {
     await Project.find({ status: "pending" }, { username: true }).sort({ dateSubmitted: -1 }).exec((err, projects) => {
 
         projects.forEach((item) => newProjects.push(item))
-        // console.log(newProjects);
+        
     });
 
     await Project.find({ status: "accepted" }, { username: true }).sort({ dateSubmitted: -1 }).exec((err, projects) => {
@@ -25,16 +33,13 @@ router.get("/", async (req, res) => {
 
 
 });
-function Lucrare(lucrare, nrUnitati, pretUnitate) {
-    this.lucrare = lucrare;
-    this.nrUnitati = nrUnitati;
-    this.pretUnitate = pretUnitate;
-}
+
 router.get('/:id', (req, res, next) => {
     Project.findOne({ _id: req.params.id }).exec((err, project) => {
 
         const dateTimeFormat = new Intl.DateTimeFormat('UK', { year: 'numeric', month: '2-digit', day: '2-digit' })
         var dateFormatted = dateTimeFormat.format(project.date)
+        
         if (project.projectType == 'renovare' && project.renovationType) {
             var projL = project.renovationType;
             var obj;
@@ -67,9 +72,8 @@ router.post('/:id', (req, res, next) => {
             cluster: process.env.PUSHER_APP_CLUSTER
         });
 
-        //   pusher.trigger('notifications', 'post_updated', post, req.headers['x-socket-id']);
-        pusher.trigger('updates', 'my_post_updated', post, req.headers['x-socket-id']);
-        console.log(pusher)
+       
+        pusher.trigger('updates', 'my_post_updated', post, req.headers['x-socket-id']);    
         res.send('');
     });
 });

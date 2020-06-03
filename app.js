@@ -20,18 +20,18 @@ handlebarsHelpers.math({
 const dashboardRouter = require("./routes/dashboard");
 const publicRouter = require("./routes/public");
 const usersRouter = require("./routes/users");
-const indexRouter = require("./routes/index");
+//const indexRouter = require("./routes/index");
 const reviewsRouter = require('./routes/reviews');
 const applicationsRouter = require("./routes/applications");
 const projectsRouter = require("./routes/projects");
 const servicesRouter = require("./routes/services");
 const calendarRouter = require("./routes/calendar")
 const pdfRouter = require("./routes/pdf");
-const uploadRouter = require("./routes/upload");
+//const uploadRouter = require("./routes/upload");
 const dashboardAdminRouter = require("./routes/dashboardAdmin");
 const adaugaCalendarRouter = require("./routes/adaugaCalendar");
 const contactRouter=require("./routes/contact")
-
+const aboutRouter = require("./routes/about")
 var conString = "mongodb+srv://paula:pw2020@pw2020-zxqyp.mongodb.net/proiect?retryWrites=true&w=majority";
 mongoose.connect(conString, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
@@ -124,16 +124,17 @@ app.use('/', publicRouter);
 app.use('/dashboard', loginRequired, dashboardRouter);
 app.use('/dashboardAdmin', adminRequired, dashboardAdminRouter);
 app.use('/users', usersRouter);
-app.use('/index', indexRouter);
+//app.use('/index', indexRouter);
 app.use('/reviews', loginRequired, reviewsRouter)
 app.use('/applications', applicationsRouter);
 app.use('/projects', projectsRouter);
 app.use('/services', servicesRouter);
 app.use('/my-project', loginRequired, calendarRouter);
 app.use('/pdf', loginRequired, pdfRouter);
-app.use('/upload', loginRequired, uploadRouter);
+//app.use('/upload', loginRequired, uploadRouter);
 app.use('/adaugaLucrare', adminRequired, adaugaCalendarRouter)
 app.use('/contact', contactRouter)
+app.use('/about', aboutRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

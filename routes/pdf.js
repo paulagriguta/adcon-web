@@ -1,37 +1,24 @@
-const express = require('express');
-const router = express.Router();
 const Pdf = require('../models/pdfModel')
 const Project = require('../models/project')
-
-const session = require('express-session');
-router.use(session({ secret: 'mySecret', resave: false, saveUninitialized: false }));
 const pdfMake = require('../pdfmake/pdfmake');
 const vfsFonts = require('../pdfmake/vfs_fonts');
-var bodyParser = require("body-parser")
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require("body-parser");
+const fs = require('fs');
+const router = express.Router();
 
 pdfMake.vfs = vfsFonts.pdfMake.vfs
-///pdfMake.vfs = vfsFonts.pdfMake.vfs;
+
+router.use(session({ secret: 'mySecret', resave: false, saveUninitialized: false }));
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 
-var fs = require('fs');
-
-// function to encode file data to base64 encoded string
-function base64_encode(file) {
-    // read binary data
-    var bitmap = fs.readFileSync(file);
-    // convert binary data to base64 encoded string
-    return new Buffer(bitmap).toString('base64');
-}
 
 router.get('/', async (req, res) => {
 
     const usr = req.query.username;
     const id = req.query.id;
-    console.log("query");
-    console.log(req.query);
-    console.log(req.query.username)
-    console.log(req.query.id)
     var dataRow = [];
     var bod2 = [[]];
     if (usr) {

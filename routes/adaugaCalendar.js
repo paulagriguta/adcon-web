@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
-
 const Project = require('../models/project')
+
+const express = require("express");
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 
+const router = express.Router();
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // The file token.json stores the user's access and refresh tokens, and is

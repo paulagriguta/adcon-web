@@ -1,11 +1,11 @@
-
-
 const express = require('express')
 const router = express.Router()
-var bodyParser = require("body-parser")
-var nodemailer = require('nodemailer');
+const bodyParser = require("body-parser")
+const nodemailer = require('nodemailer');
+
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -14,15 +14,10 @@ var transporter = nodemailer.createTransport({
     }
 });
 router.get('/', (req, res) => {
-
-
     res.render('contact');
-
-
 });
 
 router.post('/', async (req, res) => {
-console.log(req.body)
     var mailOptions = {
         from: req.body.email,
         to: 'eu.sunt.bob.constructorul@gmail.com',

@@ -1,13 +1,16 @@
 const Structure = require('../models/structure')
 const Project = require('../models/project')
 const Pdf = require('../models/pdfModel')
+
+
 const fileUpload = require('express-fileupload');
 const express = require('express')
-const router = express.Router()
-var bodyParser = require("body-parser")
+const bodyParser = require("body-parser")
 const fs = require('fs');
 const axios = require('axios');
-const formidable = require('formidable')
+const url = require('url')
+
+const router = express.Router()
 
 let rawdata = fs.readFileSync('localitati.json');
 let localitati = JSON.parse(rawdata);
@@ -19,13 +22,12 @@ router.use(fileUpload());
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 
-router.use(bodyParser.json())
-   .use(bodyParser.urlencoded());
 var user;
 var proiect;
 var valEuro;
 var poza;
-const url = require('url')
+
+
 router.get('/', (req, res) => {
 
     user = req.user.profile;
@@ -58,9 +60,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/save', async (req, res) => {
-console.log(poza)
-    console.log("valEuro")
-    console.log(valEuro)
     var pdf = new Pdf({
         valEuro: "" + valEuro,
         username: req.body.lname + " " + req.body.fname,
@@ -97,14 +96,11 @@ console.log(poza)
         res.status(400).json({ message: err.message })
     }
 
-
-
 })
 
 router.post('/', (req, res) => {
 
-    const { lname, fname, tipProiect, adresa } = req.body;
-    console.log("username : " + lname + " " + fname)
+    const { lname, fname} = req.body;
     res.redirect(url.format({
         pathname: "/pdf",
         query: {
@@ -113,9 +109,10 @@ router.post('/', (req, res) => {
     }));
 
 })
+
 router.post('/upload', (req, res) => {
     try {
-        if(!req.files) {
+        if (!req.files) {
             res.send({
                 status: false,
                 message: 'No file uploaded'
@@ -134,13 +131,11 @@ router.post('/upload', (req, res) => {
         res.status(500).send(err);
     }
 
-   // res.redirect('/my-project');
+    
 });
 
 router.post('/:id', (req, res, next) => {
-console.log(poza)
-    // console.log(req.body.tipProiect)
-    const { lname, fname, tipProiect, adresa } = req.body;
+
     proiect = new Project({
         username: req.body.lname + " " + req.body.fname,
         login: req.user.profile.login,
@@ -155,14 +150,14 @@ console.log(poza)
         constructionType: {
             nrEtaje: req.body.etaje,
             areMansarda: req.body.areMansarda,
-            structura: req.body.structura,
+            structura: req.body.tipStructura,
             suprafata: req.body.suprafata,
             nrCamere: req.body.nrCamere,
             nrBai: req.body.nrBai,
             stadiu: req.body.tipStadiu,
             plan: poza
-        }, details: req.body.message, 
-        valEuro:valEuro
+        }, details: req.body.message,
+        valEuro: valEuro
 
     })
 
@@ -179,7 +174,6 @@ console.log(poza)
             });
 
             pusher.trigger('notifications', 'post_posted', req.body.username, req.headers['x-socket-id']);
-            console.log(pusher)
             res.status(204).send();
         })
 
