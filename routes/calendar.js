@@ -92,7 +92,7 @@ router.post('/save', async (req, res) => {
         res.status(204).send();
 
     }
-    catch {
+    catch(err) {
         res.status(400).json({ message: err.message })
     }
 
