@@ -22,7 +22,7 @@
     "fs": "0.0.1-security",
     "fs-extra": "^9.0.0",
     "googleapis": "^39.2.0",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "handlebars-helpers": "^0.10.0",
     "handlebars-layouts": "^3.1.4",
     "hbs": "^4.1.1",
